@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎂 Happy Birthday 🎂</title>
+  <style>
+    body { 
+      text-align: center; 
+      background: pink; 
+      font-family: Arial, sans-serif; 
+      margin: 0;
+      overflow-x: hidden;
+    }
+    h1 { font-size: 50px; color: purple; margin-top: 30px; }
+    p { font-size: 22px; }
+
+    button { 
+      padding: 15px 25px; 
+      font-size: 18px; 
+      border: none; 
+      border-radius: 10px; 
+      background: gold; 
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+    /* 🎂 Cake + candles */
+    .cake {
+      margin: 20px auto;
+      width: 200px;
+      height: 120px;
+      background: #8B4513;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 0 10px #0003;
+    }
+    .cake::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      width: 160px;
+      height: 20px;
+      background: #ffb6c1;
+      border-radius: 5px;
+    }
+    .candle {
+      width: 15px;
+      height: 40px;
+      background: white;
+      position: absolute;
+      top: -40px;
+      border-radius: 3px;
+    }
+    .flame {
+      width: 15px;
+      height: 15px;
+      background: gold;
+      border-radius: 50%;
+      position: absolute;
+      top: -15px;
+      left: 0;
+      animation: flicker 0.3s infinite alternate;
+    }
+    @keyframes flicker {
+      from { transform: scale(1); opacity: 1; }
+      to { transform: scale(1.2); opacity: 0.8; }
+    }
+
+    /* 🖼️ Birthday photo */
+    .photo-frame {
+      margin: 20px auto;
+      width: 200px;
+      height: 200px;
+      border: 6px solid gold;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 0 15px #0005;
+    }
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎂 Happy Birthday 🎂</h1>
+  <p>Wishing you joy, love, and laughter 🎈</p>
+
+  <!-- 🖼️ Photo section -->
+  <div class="photo-frame">
+    <!-- Replace the link below with your own photo URL -->
+    <img src="https://i.imgur.com/1Q9Z1Zm.jpg" alt="Birthday Person">
+  </div>
+
+  <!-- 🎂 Cake with candles -->
+  <div class="cake">
+    <div class="candle" style="left:40px;"><div class="flame"></div></div>
+    <div class="candle" style="left:90px;"><div class="flame"></div></div>
+    <div class="candle" style="left:140px;"><div class="flame"></div></div>
+  </div>
+
+  <button onclick="startSurprise()">Blow the Candles 🎁</button>
+  <canvas id="confetti"></canvas>
+
+  <!-- 🎶 Music -->
+  <audio id="song" src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mp3"></audio>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    function startSurprise() {
+      // Play music
+      document.getElementById("song").play();
+
+      // Blow candles (remove flames)
+      let flames = document.querySelectorAll(".flame");
+      flames.forEach(f => f.style.display = "none");
+
+      // Confetti animation
+      var duration = 5 * 1000;
+      var end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+
+      alert("🎉 Make a Wish and Celebrate 🎂✨");
+    }
+  </script>
+</body>
+</html>
